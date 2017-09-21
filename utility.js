@@ -49,8 +49,7 @@ var utilityLib = (function(){
         var len = arr.length;
         return typeof len === "number" && len >= 0; 
     }
-var a = [1,3,2,6,2,3,22,6,8]
-console.log(insertSort(a))
+
     /*
      * sort array
      * Default ascending
