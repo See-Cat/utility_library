@@ -8,7 +8,7 @@ var utilityLib = (function(){
             obj = {};
         if(index !== -1){    
             var params = url.slice(index + 1) && url.slice(index + 1).split(/&/);
-            for(var i = 0; i<params.length; i++){
+            for(let i = 0; i<params.length; i++){
                 obj[params[i].split(/=/)[0]] = params[i].split(/=/)[1];
             }
         }
@@ -49,7 +49,8 @@ var utilityLib = (function(){
         var len = arr.length;
         return typeof len === "number" && len >= 0; 
     }
-
+var a = [1,3,2,6,2,3,22,6,8]
+console.log(insertSort(a))
     /*
      * sort array
      * Default ascending
@@ -57,15 +58,14 @@ var utilityLib = (function(){
      */
     function insertSort(arr, isDown=false){
         if(getVarType(arr) === "array"){
-            for(var i=1, len=arr.length; i<len; i++){
-                var p = i - 1;
-                let [t, d] = isNaN(Number(arr[p])) || isNaN(Number(arr[i]))? [arr[p], arr[i]]:
-                                [Number(arr[p]), Number(arr[i])];
-                while(t > d && p >= 0){
+            for(let i=1, len=arr.length; i<len; i++){
+                let t = arr[i],
+                	p = i - 1;
+                while(arr[p] > t && p >= 0){
                     arr[p + 1] = arr[p];
                     p--;
                 }
-                arr[p + 1] = arr[i];
+                arr[p + 1] = t;
             }
             isDown && arr.reverse();
         }
@@ -84,11 +84,11 @@ var utilityLib = (function(){
         var mid = arr.splice(Math.floor((arr.length-1)/2), 1)[0],
             left = [],
             right = [];
-        for(var i=0; i<arr.length; i++){
-            let [t, m] = isNaN(Number(arr[i])) || isNaN(Number(mid))? [arr[i], mid]:
-                        [Number(arr[i]), Number(mid)]
+        for(let i=0; i<arr.length; i++){
+            let [t, m] = !isNaN(Number(arr[i])) && !isNaN(Number(mid))? [Number(arr[i]), Number(mid)]:
+                        [arr[i], mid];
             t > m? right.push(arr[i]):
-                        left.push(arr[i]);
+                    left.push(arr[i]);
         }
         var [l, r] = isDown?[right, left]:
                         [left, right];
@@ -121,7 +121,7 @@ var utilityLib = (function(){
             return obj;
         }
         var newObj = getVarType(obj) === "object"? {}: [];
-        for(var key in obj){
+        for(let key in obj){
             obj.hasOwnProperty(key) && (newObj[key] = arguments.callee(obj[key]));
         }
         return newObj;
