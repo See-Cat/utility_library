@@ -4,17 +4,17 @@ var utilityLib = (function(){
      * Gets the parameters in the URL
      */
     function getUrlParam(url){
-        var index = url.indexOf("?"),
-            obj = {};
-        if(index !== -1){    
-            var params = url.slice(index + 1) && url.slice(index + 1).split(/&/);
-            for(let i = 0; i<params.length; i++){
-                obj[params[i].split(/=/)[0]] = params[i].split(/=/)[1];
-            }
-        }
-        return obj;
+        var obj = {},
+        	arr = url.match(/[?|&][^&=]+=[^&=]+/g);
+		if(getVarType(arr) === "array"){
+		    for(let i=0; i<arr.length; i++){
+		        let param = arr[i].slice(1);
+		        obj[param.split("=")[0]] = param.split("=")[1];
+		    }
+		}
+		return obj;
     }
-
+    
     /*
      * internal use
      * The array must be sorted
